@@ -6,6 +6,12 @@
     box-sizing: border-box;
 }
 
+*::before, *::after {
+    position: absolute;
+    content: '';
+}
+
+
 body {
     padding: 0;
     margin: 0;
@@ -16,7 +22,6 @@ body {
 }
 
 .gameboard {
-
     position: absolute;
     top: 50%;
     left: 50%;
@@ -25,7 +30,10 @@ body {
     display: grid;
     width: 60vh;
     height: 60vh;
-    grid-template-columns: repeat(3, 1fr);
+    min-width: 300px;
+    min-height: 300px;
+    grid-template-columns: repeat(3, minmax(100px, 1fr));
+    /* grid-template-rows: repeat(3, minmax(100px, 1fr)); */
 }
 
 .tile {
@@ -34,7 +42,12 @@ body {
     border-right: 1px solid white;
 }
 
-.tile:hover {
+
+.tile-bg {
+    background-color: black;
+}
+
+.tile-bg:hover {
     background-color: var(--hover-black);
     cursor: pointer;
 }
@@ -45,4 +58,41 @@ body {
 
 .no-bottom {
     border-bottom: 0;
+}
+
+
+.mark {
+    position: relative;
+    top: 50%;
+    left: 50%;
+    
+}
+
+.x {
+    position: relative;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) rotate(45deg);
+    
+    height: 80%;
+    width: 10px;
+    background-color: white;
+}
+
+.x::after {
+    transform: rotate(90deg);
+
+    height: 100%;
+    width: 100%;
+    background-color: white;
+}
+
+.o {
+    height: 70%;
+    width: 75%;
+    transform: translate(-50%, -50%);
+    
+    background-color: transparent;
+    border: 10px solid white;
+    border-radius: 50%;
 }

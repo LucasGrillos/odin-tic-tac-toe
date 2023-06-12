@@ -1,19 +1,30 @@
 const Gameboard = (() => {
-    let gridArray = [
-        '-', '-', '-',
-        '-', '-', '-',
-        '-', '-', '-'
+    let board = [
+        '', '', '',
+        '', '', '',
+        '', '', ''
     ]
+
+    const getBoard = () => {
+        return board;
+    }
+
+    return ({
+        getBoard
+    });
+
 })();
 
 const Gameplay = (() => {
 
 })();
 
-const UIcalls = (() => {
+const DisplayController = (() => {
 
 })();
 
 const Player = (mark) => {
     
 }
+
+console.log(Gameboard.getBoard());
