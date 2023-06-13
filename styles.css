@@ -37,6 +37,7 @@ body {
 }
 
 .tile {
+    position: relative;
     background-color: black;
     border-bottom: 1px solid white;
     border-right: 1px solid white;
@@ -62,14 +63,13 @@ body {
 
 
 .mark {
-    position: relative;
+    position: absolute;
     top: 50%;
     left: 50%;
     
 }
 
 .x {
-    position: relative;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%) rotate(45deg);
@@ -88,8 +88,8 @@ body {
 }
 
 .o {
-    height: 70%;
-    width: 75%;
+    height: 65%;
+    width: 65%;
     transform: translate(-50%, -50%);
     
     background-color: transparent;

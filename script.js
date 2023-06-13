@@ -1,5 +1,5 @@
 const X = 'x';
-const Y = 'y';
+const Y = 'o';
 
 const Player = (mark) => {
     mark = mark;
@@ -15,21 +15,25 @@ const Player = (mark) => {
 
 const Gameboard = (() => {
     let board = [
-        '', 'x', 'x',
-        '', 'x', 'o',
-        'x', 'o', 'o'
+        '', '', '',
+        '', '', '',
+        '', '', ''
     ]
 
     const getBoard = () => {
         return board;
     }
 
-    const checkTile = (tileNumber) => {
+    const checkTileFull = (tileNumber) => {
         return(board[tileNumber]);
     }
 
+    const addMark = (tileNumber, mark) => {
+        board[tileNumber] = mark;
+    }
+
     return ({
-        getBoard, checkTile
+        getBoard, checkTileFull, addMark
     });
 
 })();
@@ -38,22 +42,30 @@ const Gameplay = (() => {
 
     let player1 = Player(X);
     let player2 = Player(Y);
-    let turn = 0;
+    let turn = 1;
 
     const createPlayers = (player, mark) => {
+
     }
 
-    const tryMove = (tileNumber) => {
-        if(!Gameboard.checkTile(tileNumber)) {
-            console.log("NOT FULL")
+    const getCurrentPlayer = () => {
+        return (turn % 2 == 0 ? player2.getMark() : player1.getMark() )
+    } 
+
+    const clickTile = (tileNumber) => {
+        if(!Gameboard.checkTileFull(tileNumber)) {
+            Gameboard.addMark(tileNumber, getCurrentPlayer())
+            turn++;
+            DisplayController.renderBoard();
         }
+
         else {
             console.log("FULL");
         }
     }
 
     return ({
-        tryMove
+        clickTile, 
     })
 
 })();
@@ -74,7 +86,7 @@ const DisplayController = (() => {
         let tiles = Array.from(document.getElementById('gameboard').children);
         tiles.map( tile => {
             tile.addEventListener("click", () => {
-                Gameplay.tryMove(Number(tile.id[tile.id.length-1]-1));
+                Gameplay.clickTile(Number(tile.id[tile.id.length-1]-1));
             })
         })
     }
