@@ -1,5 +1,17 @@
-const X = 'X';
+const X = 'x';
+const Y = 'y';
 
+const Player = (mark) => {
+    mark = mark;
+
+    const getMark = () => {
+        return mark;
+    }
+
+    return {
+        getMark
+    }
+}
 
 const Gameboard = (() => {
     let board = [
@@ -12,13 +24,37 @@ const Gameboard = (() => {
         return board;
     }
 
+    const checkTile = (tileNumber) => {
+        return(board[tileNumber]);
+    }
+
     return ({
-        getBoard
+        getBoard, checkTile
     });
 
 })();
 
 const Gameplay = (() => {
+
+    let player1 = Player(X);
+    let player2 = Player(Y);
+    let turn = 0;
+
+    const createPlayers = (player, mark) => {
+    }
+
+    const tryMove = (tileNumber) => {
+        if(!Gameboard.checkTile(tileNumber)) {
+            console.log("NOT FULL")
+        }
+        else {
+            console.log("FULL");
+        }
+    }
+
+    return ({
+        tryMove
+    })
 
 })();
 
@@ -34,13 +70,19 @@ const DisplayController = (() => {
         }
     }
 
+    const bindTileListeners = () => {
+        let tiles = Array.from(document.getElementById('gameboard').children);
+        tiles.map( tile => {
+            tile.addEventListener("click", () => {
+                Gameplay.tryMove(Number(tile.id[tile.id.length-1]-1));
+            })
+        })
+    }
+
     return({
-        renderBoard
+        renderBoard, bindTileListeners  
     })
 })();
 
-const Player = (mark) => {
-    
-}
 
 console.log(Gameboard.getBoard());
