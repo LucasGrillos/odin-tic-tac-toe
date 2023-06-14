@@ -15,9 +15,9 @@ const Player = (mark) => {
 
 const Gameboard = (() => {
     let board = [
-        '', '', '',
-        '', '', '',
-        '', '', ''
+        'x', 'o', '',
+        '', '', 'x',
+        '', 'o', 'o'
     ]
 
     const getBoard = () => {
@@ -72,6 +72,7 @@ const Gameplay = (() => {
 
 const DisplayController = (() => {
 
+    /*
     const renderBoard = () => {
         let board = Gameboard.getBoard();
         for (var i=0; i<board.length; i++) {
@@ -81,12 +82,25 @@ const DisplayController = (() => {
             }
         }
     }
+    */
+
+    const renderBoard = () => {
+        let board = Gameboard.getBoard();
+        for(var i=0; i<board.length;i++) {
+            if(board[i]) {
+                let tile = document.querySelector(`#tile${i+1}`);
+                let markDiv = document.createElement('div');
+                markDiv.classList.add("mark", String(board[i]));
+                tile.appendChild(markDiv);
+            }
+        }
+    }
 
     const bindTileListeners = () => {
         let tiles = Array.from(document.getElementById('gameboard').children);
         tiles.map( tile => {
             tile.addEventListener("click", () => {
-                Gameplay.clickTile(Number(tile.id[tile.id.length-1]-1));
+                Gameplay.clickTile(Number(tile.id[tile.id.length-1]-1)); // finds tile number for adding board
             })
         })
     }
