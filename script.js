@@ -15,9 +15,9 @@ const Player = (mark) => {
 
 const Gameboard = (() => {
     let board = [
-        'x', 'o', '',
-        '', '', 'x',
-        '', 'o', 'o'
+        '', '', '',
+        '', '', '',
+        '', '', ''
     ]
 
     const getBoard = () => {
@@ -50,6 +50,7 @@ const Gameplay = (() => {
 
     const getCurrentPlayer = () => {
         return (turn % 2 == 0 ? player2.getMark() : player1.getMark() )
+        // returns 'x' or 'o'
     } 
 
     const clickTile = (tileNumber) => {
@@ -60,7 +61,7 @@ const Gameplay = (() => {
         }
 
         else {
-            console.log("FULL");
+            //DisplayController.fullFlashRed(tileNumber);
         }
     }
 
@@ -72,23 +73,11 @@ const Gameplay = (() => {
 
 const DisplayController = (() => {
 
-    /*
-    const renderBoard = () => {
-        let board = Gameboard.getBoard();
-        for (var i=0; i<board.length; i++) {
-            let mark = document.querySelector(`#tile${String(i+1)} > div`);
-            if(board[i]) {
-                mark.classList.add(board[i]);
-            }
-        }
-    }
-    */
-
     const renderBoard = () => {
         let board = Gameboard.getBoard();
         for(var i=0; i<board.length;i++) {
             if(board[i]) {
-                let tile = document.querySelector(`#tile${i+1}`);
+                let tile = document.querySelector(`#tile${i}`);
                 let markDiv = document.createElement('div');
                 markDiv.classList.add("mark", String(board[i]));
                 tile.appendChild(markDiv);
@@ -100,9 +89,13 @@ const DisplayController = (() => {
         let tiles = Array.from(document.getElementById('gameboard').children);
         tiles.map( tile => {
             tile.addEventListener("click", () => {
-                Gameplay.clickTile(Number(tile.id[tile.id.length-1]-1)); // finds tile number for adding board
+                Gameplay.clickTile(Number(tile.id[tile.id.length-1])); // argument passed is the tile number the mark would be added to.
             })
         })
+    }
+
+    const fullFlashRed = (tileNumber) => {
+        let tile = document.getElementById(`tile${tileNumber}`);
     }
 
     return({
