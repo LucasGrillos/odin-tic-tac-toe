@@ -61,7 +61,7 @@ const Gameplay = (() => {
         }
 
         else {
-            //DisplayController.fullFlashRed(tileNumber);
+            DisplayController.fullFlashRed(tileNumber);
         }
     }
 
@@ -96,10 +96,14 @@ const DisplayController = (() => {
 
     const fullFlashRed = (tileNumber) => {
         let tile = document.getElementById(`tile${tileNumber}`);
+        tile.classList.add('flash-red');
+        setTimeout(function() {
+            tile.classList.remove('flash-red')
+        }, 100)
     }
 
     return({
-        renderBoard, bindTileListeners  
+        renderBoard, bindTileListeners, fullFlashRed
     })
 })();
 
