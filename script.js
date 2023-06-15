@@ -71,11 +71,20 @@ const Gameplay = (() => {
         let curIndices = [];
         for (var i=0;i<board.length;i++) {
             if (board[i] == curPlayer) {
-                curIndices.push(board[i]);
+                curIndices.push(i);
             }
         }
 
-        console.log(curIndices);
+        let winArray = winConditions.filter(winCondition => {
+            let checkSubset = winCondition.every((el) => {
+                return curIndices.includes(el);
+            })
+
+            if(checkSubset) {
+                return winCondition;
+            }
+        }).flat()
+        console.log(winArray)
     } 
 
     const clickTile = (tileNumber) => {
