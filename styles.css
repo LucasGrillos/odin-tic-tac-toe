@@ -38,6 +38,7 @@ body {
 }
 
 .tile {
+    color: white;
     position: relative;
     background-color: black;
     border-bottom: 1px solid white;
