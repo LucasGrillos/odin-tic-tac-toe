@@ -1,6 +1,7 @@
 :root {
     --hover-black: #101010;
     --flash-red: #3F0000;
+    --win-green: #006400;
 }
 
 * {
@@ -34,7 +35,10 @@ body {
     min-width: 300px;
     min-height: 300px;
     grid-template-columns: repeat(3, minmax(100px, 1fr));
+}
 
+.board-win-opacity {
+    opacity: 50%;
 }
 
 .tile {
@@ -105,4 +109,26 @@ body {
 
 .flash-red:hover {
     background-color: var(--flash-red);
+}
+
+.win-green {
+    background-color: var(--win-green);
+}
+
+.win-message {
+    height: 10vh;
+    display: none;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+.win-message h1 {
+    margin: 0;
+    color: white;
+    font-family: sans-serif;
+}
+
+.add-flex {
+    display: flex;
 }

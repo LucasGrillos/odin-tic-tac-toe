@@ -84,7 +84,9 @@ const Gameplay = (() => {
                 return winCondition;
             }
         }).flat()
-        console.log(winArray)
+        if (winArray.length) {
+            DisplayController.displayWin(curPlayer, winArray);
+        };
     } 
 
     const clickTile = (tileNumber) => {
@@ -109,6 +111,9 @@ const Gameplay = (() => {
 
 const DisplayController = (() => {
 
+    let winMessageDiv = document.getElementById('wm-div');
+    let winMessageH1 = document.getElementById('wm-h1'); 
+
     const renderBoard = () => {
         let board = Gameboard.getBoard();
         for(var i=0; i<board.length;i++) {
@@ -131,6 +136,17 @@ const DisplayController = (() => {
         })
     }
 
+    const displayWin = (curPlayer, winArray) => {
+        winMessageH1.textContent = `Player ${curPlayer.toUpperCase()} wins!`
+        winMessageDiv.classList.add("add-flex")
+
+        for (var i = 0; i<=8; i++) {
+            if (winArray.includes(i)) {
+                document.getElementById(`tile${i}`).classList.add('win-green')
+            }
+        }
+    }
+
     const fullFlashRed = (tileNumber) => {
         let tile = document.getElementById(`tile${tileNumber}`);
         tile.classList.add('flash-red');
@@ -140,7 +156,7 @@ const DisplayController = (() => {
     }
 
     return({
-        renderBoard, bindTileListeners, fullFlashRed
+        renderBoard, bindTileListeners, fullFlashRed, displayWin
     })
 })();
 
