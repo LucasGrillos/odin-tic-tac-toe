@@ -1,5 +1,5 @@
 const X = 'x';
-const Y = 'o';
+const O = 'o';
 
 const Player = (mark) => {
     mark = mark;
@@ -41,7 +41,8 @@ const Gameboard = (() => {
 const Gameplay = (() => {
 
     let player1 = Player(X);
-    let player2 = Player(Y);
+    let player2 = Player(O);
+    let playerScore = {'x': 0, 'o': 0}
     let turn = 1;
 
     const winConditions = [
@@ -59,6 +60,10 @@ const Gameplay = (() => {
 
     const createPlayers = (player, mark) => {
 
+    }
+
+    const incrementPlayerScore = (curPlayer) => {
+        playerScore[curPlayer]+=1;
     }
 
     const getCurrentPlayer = () => {
@@ -85,6 +90,7 @@ const Gameplay = (() => {
             }
         }).flat()
         if (winArray.length) {
+            incrementPlayerScore(curPlayer);
             DisplayController.displayWin(curPlayer, winArray);
         };
     } 
@@ -103,8 +109,12 @@ const Gameplay = (() => {
         }
     }
 
+    const getPlayerScore = (curPlayer) => {
+        return playerScore[curPlayer];
+    }
+
     return ({
-        clickTile, 
+        clickTile, getPlayerScore
     })
 
 })();
@@ -112,7 +122,19 @@ const Gameplay = (() => {
 const DisplayController = (() => {
 
     let winMessageDiv = document.getElementById('wm-div');
-    let winMessageH1 = document.getElementById('wm-h1'); 
+    let winMessageH1 = document.getElementById('wm-h1');
+    let xScore = document.getElementById('x-score');
+    let oScore = document.getElementById('o-score');
+    let tiles = Array.from(document.getElementById('gameboard').children); 
+
+    const tileListener = (event) => {
+        Gameplay.clickTile(Number(event.target.id[event.target.id.length-1])); // argument passed is the tile number the mark would be added to.
+    }
+
+    const updateScore = () => {
+        xScore.textContent = `X SCORE: ${Gameplay.getPlayerScore(X)}`
+        oScore.textContent = `O SCORE: ${Gameplay.getPlayerScore(O)}`
+    }
 
     const renderBoard = () => {
         let board = Gameboard.getBoard();
@@ -128,23 +150,27 @@ const DisplayController = (() => {
     }
 
     const bindTileListeners = () => {
-        let tiles = Array.from(document.getElementById('gameboard').children);
         tiles.map( tile => {
-            tile.addEventListener("click", () => {
-                Gameplay.clickTile(Number(tile.id[tile.id.length-1])); // argument passed is the tile number the mark would be added to.
-            })
+            tile.addEventListener("click", tileListener);
         })
     }
 
     const displayWin = (curPlayer, winArray) => {
         winMessageH1.textContent = `Player ${curPlayer.toUpperCase()} wins!`
-        winMessageDiv.classList.add("add-flex")
+        winMessageDiv.classList.add("add-visibility")
+        updateScore();
 
         for (var i = 0; i<=8; i++) {
             if (winArray.includes(i)) {
                 document.getElementById(`tile${i}`).classList.add('win-green')
             }
         }
+
+        tiles.map( tile => {
+            tile.removeEventListener("click", tileListener);
+        })
+
+        //document.addEventListener
     }
 
     const fullFlashRed = (tileNumber) => {
@@ -156,7 +182,7 @@ const DisplayController = (() => {
     }
 
     return({
-        renderBoard, bindTileListeners, fullFlashRed, displayWin
+        renderBoard, bindTileListeners, fullFlashRed, displayWin, updateScore
     })
 })();
 
