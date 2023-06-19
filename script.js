@@ -156,7 +156,7 @@ const DisplayController = (() => {
     }
 
     const displayWin = (curPlayer, winArray) => {
-        winMessageH1.textContent = `Player ${curPlayer.toUpperCase()} wins!`
+        winMessageH1.textContent = `Player ${curPlayer.toUpperCase()} wins! (click to play again)`
         winMessageDiv.classList.add("add-visibility")
         updateScore();
 
@@ -170,7 +170,7 @@ const DisplayController = (() => {
             tile.removeEventListener("click", tileListener);
         })
 
-        //document.addEventListener
+        //document.addEventListener('click', )
     }
 
     const fullFlashRed = (tileNumber) => {

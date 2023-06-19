@@ -120,9 +120,13 @@ body {
     background-color: var(--win-green);
 }
 
+.win-green:hover {
+    background-color: var(--win-green);
+}
+
 .win-message {
     visibility: hidden;
-    height: 10vh;
+    height: 7vh;
     display: flex;
     justify-content: center;
     align-items: center;
