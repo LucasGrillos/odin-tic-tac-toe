@@ -131,6 +131,11 @@ const DisplayController = (() => {
         Gameplay.clickTile(Number(event.target.id[event.target.id.length-1])); // argument passed is the tile number the mark would be added to.
     }
 
+    const resetGame = () => {
+        console.log("Reset Game!")
+        document.removeEventListener("click", resetGame);
+    } 
+
     const updateScore = () => {
         xScore.textContent = `X SCORE: ${Gameplay.getPlayerScore(X)}`
         oScore.textContent = `O SCORE: ${Gameplay.getPlayerScore(O)}`
@@ -169,8 +174,7 @@ const DisplayController = (() => {
         tiles.map( tile => {
             tile.removeEventListener("click", tileListener);
         })
-
-        //document.addEventListener('click', )
+        document.addEventListener('click', resetGame);
     }
 
     const fullFlashRed = (tileNumber) => {
