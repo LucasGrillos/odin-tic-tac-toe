@@ -44,6 +44,7 @@ const Gameplay = (() => {
     let player2 = Player(O);
     let playerScore = {'x': 0, 'o': 0}
     let turn = 1;
+    let currentPlayer = player1;
 
     const winConditions = [
         [0,3,6],
